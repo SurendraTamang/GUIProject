@@ -1,0 +1,8 @@
+category,description,functionIdentifier
+Candidates,Do A,F1
+Candidates,Do B,F2
+Candidates,Do A then B,F3
+Contacts,Do x,F4
+Contacts,Do y,F5
+Admin,Import x,F6
+Admin,Import y,F7
