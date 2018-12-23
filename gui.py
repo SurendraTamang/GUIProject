@@ -101,9 +101,7 @@ class GuiBuilder:
                                       self.taskVar,
                                       *self.tasks
                                      ) 
-        self.lblError = tk.Label(frame,
-                             text="",
-                             fg="red")
+        self.lblError = tk.Label(frame, text="", fg="red")
         self.btnGo = tk.Button(frame, text="GO", fg="red",
                                command=self.onGoClicked)
         self.btnQuit = tk.Button(frame, text="QUIT", fg="red",
@@ -160,18 +158,24 @@ class GuiBuilder:
         _task = self.taskVar.get()
         _func = self.getFunctions(_cat, _task)
         if _func:
-            self.lblError['text'] = ""
             _area = self.entArea.get()
             _skill = self.entSkill.get()
             _size = self.entSize.get()
             _is_senior = self.seniorVar.get()
             _msg = self.txtMessage.get("1.0","end-1c")
+            try:
+                self.lblError['text'] = "Successful call: " + _func
+                self.lblError['fg'] = "blue"
+                obj = TaskFunction.factory(_func)
+                obj.call(_area, _skill, _size, _is_senior, _msg)
+            except AssertionError as e:
+                self.lblError['text'] = e
+                self.lblError['fg'] = "red"
 
 
-            obj = TaskFunction.factory(_func)
-            obj.call(_area, _skill, _size, _is_senior, _msg)
         else:
-            self.lblError['text'] = "Something wrong"
+            self.lblError['text'] = "select proper category or task"
+            self.lblError['fg'] = "red"
 
     def getCategories(self):
         '''
